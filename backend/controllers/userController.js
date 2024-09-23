@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const user = require('../models/userModel')
 
@@ -31,7 +32,7 @@ const hashedPassword = await bcrypt.hash(password, salt)
 const user = await User.create({
     name,
     email,
-    password: hashedPassword
+    password: hashedPassword,
 })
 
 if(user) {
@@ -51,7 +52,21 @@ if(user) {
 // @access Public
 
 const loginUser = asyncHandler(async (req, res) => {
-    res.send('Login Route')
+    const {email, password} = req.body
+
+    const user = await User.findOne({ email })
+
+    // check user and passowrd match
+   if(user &&  (await bcrypt.compare(password, user.password))) {
+    res.json(200).json({
+        _id:  user._id,
+        name: user.name,
+        email: user.email
+    })
+   } else {
+    res.status(401)
+    throw new Error('Invalid credentials')
+   }
 })
 
 module.exports = {
