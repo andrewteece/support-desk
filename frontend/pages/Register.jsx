@@ -35,7 +35,7 @@ function Register() {
       </section>
 
       <section className='form'>
-        <form>
+        <form onSubmit={onSubmit}>
           <div className='form-group'>
             <input
               type='text'
