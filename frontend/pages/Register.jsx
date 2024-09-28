@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaUser } from 'react-icons/fa';
-import { useSelector, useDispatch } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { register } from '../src/features/auth/authSlice';
 import Spinner from '../src/components/Spinner';
 
