@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { createTicket } from '../features/tickets/ticketSlice';
 import BackButton from '../components/BackButton';
+
 function NewTicket() {
   const { user } = useSelector((state) => state.auth);
 
@@ -12,8 +13,24 @@ function NewTicket() {
   const [product, setProduct] = useState('iPhone');
   const [description, setDescription] = useState('');
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createTicket({ product, description }))
+      .unwrap()
+      .then(() => {
+        // we got a good response so navigate the user
+        navigate('/tickets');
+        toast.success('New ticket created');
+      })
+      .catch(toast.error);
+  };
+
   return (
     <>
+      <BackButton />
       <section className='heading'>
         <h1>Create New Ticket</h1>
         <p>Please fill out the form below</p>
@@ -28,10 +45,15 @@ function NewTicket() {
           <label htmlFor='email'>Customer Email</label>
           <input type='email' className='form-control' value={email} disabled />
         </div>
-        <form>
+        <form onSubmit={onSubmit}>
           <div className='form-group'>
             <label htmlFor='product'>Product</label>
-            <select name='product' id='product' value='{product}'>
+            <select
+              name='product'
+              id='product'
+              value={product}
+              onChange={(e) => setProduct(e.target.value)}
+            >
               <option value='iPhone'>iPhone</option>
               <option value='Macbook Pro '>Macbook Pro</option>
               <option value='iMac'>iMac</option>
@@ -46,6 +68,7 @@ function NewTicket() {
               className='form-control'
               placeholder='Description'
               value={description}
+              onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
           <div className='form-group'>
