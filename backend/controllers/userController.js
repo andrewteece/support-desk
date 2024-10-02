@@ -59,7 +59,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     // check user and passowrd match
    if(user &&  (await bcrypt.compare(password, user.password))) {
-    res.json(200).json({
+    res.status(200).json({
         _id:  user._id,
         name: user.name,
         email: user.email,
@@ -85,7 +85,8 @@ const getMe = asyncHandler(async (req, res) => {
 
 
 // generate token
-const generateToken = (id) => {
+function generateToken(id) {
+    console.log('Secret is: ', process.env.JWT_SECRET);
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: '30d',
     })

@@ -33,6 +33,7 @@ function Ticket() {
   const { notes } = useSelector((state) => state.notes);
 
   // NOTE: no need for two useParams
+  // const params = useParams()
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { ticketId } = useParams();
@@ -42,20 +43,24 @@ function Ticket() {
     dispatch(getNotes(ticketId)).unwrap().catch(toast.error);
   }, [ticketId, dispatch]);
 
-  // close ticket
+  // Close ticket
   const onTicketClose = () => {
+    // NOTE: we can unwrap our AsyncThunkACtion here so no need for isError and
+    // isSuccess state
     dispatch(closeTicket(ticketId))
       .unwrap()
       .then(() => {
-        toast.success('Ticket closed');
+        toast.success('Ticket Closed');
         navigate('/tickets');
       })
       .catch(toast.error);
   };
 
-  // create note submit
+  // Create note submit
   const onNoteSubmit = (e) => {
-    e.preventDeafault();
+    // NOTE: we can unwrap our AsyncThunkACtion here so no need for isError and
+    // isSuccess state
+    e.preventDefault();
     dispatch(createNote({ noteText, ticketId }))
       .unwrap()
       .then(() => {
@@ -65,7 +70,7 @@ function Ticket() {
       .catch(toast.error);
   };
 
-  // open/close modal
+  // Open/close modal
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
 
@@ -79,18 +84,17 @@ function Ticket() {
         <BackButton />
         <h2>
           Ticket ID: {ticket._id}
-          <span className={`status status-${ticket.staus}`}>
+          <span className={`status status-${ticket.status}`}>
             {ticket.status}
           </span>
         </h2>
         <h3>
-          Date Submitted:{' '}
-          {new Date(ticket.createdAt).toLocaleDateString('en-US')}
+          Date Submitted: {new Date(ticket.createdAt).toLocaleString('en-US')}
         </h3>
         <h3>Product: {ticket.product}</h3>
         <hr />
         <div className='ticket-desc'>
-          <h3>Desription of Issue</h3>
+          <h3>Description of Issue</h3>
           <p>{ticket.description}</p>
         </div>
         <h2>Notes</h2>
@@ -104,7 +108,7 @@ function Ticket() {
 
       <Modal
         isOpen={modalIsOpen}
-        onRequestClost={closeModal}
+        onRequestClose={closeModal}
         style={customStyles}
         contentLabel='Add Note'
       >
@@ -113,7 +117,7 @@ function Ticket() {
           X
         </button>
         <form onSubmit={onNoteSubmit}>
-          <div>
+          <div className='form-group'>
             <textarea
               name='noteText'
               id='noteText'
