@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import Modal from 'react-modal';
-import { FaPlus } from 'react-icons/fa';
-import { useSelector, useDispatch } from 'react-redux';
-import { getTicket, closeTicket } from '../features/tickets/ticketSlice';
-import { getNotes, createNote } from '../features/notes/noteSlice';
-import { useParams, useNavigate } from 'react-router-dom';
-import BackButton from '../components/BackButton';
-import Spinner from '../components/Spinner';
-import NoteItem from '../components/NoteItem';
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import Modal from 'react-modal'
+import { FaPlus } from 'react-icons/fa'
+import { useSelector, useDispatch } from 'react-redux'
+import { getTicket, closeTicket } from '../features/tickets/ticketSlice'
+import { getNotes, createNote } from '../features/notes/noteSlice'
+import { useParams, useNavigate } from 'react-router-dom'
+import BackButton from '../components/BackButton'
+import Spinner from '../components/Spinner'
+import NoteItem from '../components/NoteItem'
 
 const customStyles = {
   content: {
@@ -21,27 +21,27 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
     position: 'relative',
   },
-};
+}
 
-Modal.setAppElement('#root');
+Modal.setAppElement('#root')
 
 function Ticket() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [noteText, setNoteText] = useState('');
-  const { ticket } = useSelector((state) => state.tickets);
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [noteText, setNoteText] = useState('')
+  const { ticket } = useSelector((state) => state.tickets)
 
-  const { notes } = useSelector((state) => state.notes);
+  const { notes } = useSelector((state) => state.notes)
 
   // NOTE: no need for two useParams
   // const params = useParams()
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { ticketId } = useParams();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { ticketId } = useParams()
 
   useEffect(() => {
-    dispatch(getTicket(ticketId)).unwrap().catch(toast.error);
-    dispatch(getNotes(ticketId)).unwrap().catch(toast.error);
-  }, [ticketId, dispatch]);
+    dispatch(getTicket(ticketId)).unwrap().catch(toast.error)
+    dispatch(getNotes(ticketId)).unwrap().catch(toast.error)
+  }, [ticketId, dispatch])
 
   // Close ticket
   const onTicketClose = () => {
@@ -50,32 +50,32 @@ function Ticket() {
     dispatch(closeTicket(ticketId))
       .unwrap()
       .then(() => {
-        toast.success('Ticket Closed');
-        navigate('/tickets');
+        toast.success('Ticket Closed')
+        navigate('/tickets')
       })
-      .catch(toast.error);
-  };
+      .catch(toast.error)
+  }
 
   // Create note submit
   const onNoteSubmit = (e) => {
     // NOTE: we can unwrap our AsyncThunkACtion here so no need for isError and
     // isSuccess state
-    e.preventDefault();
+    e.preventDefault()
     dispatch(createNote({ noteText, ticketId }))
       .unwrap()
       .then(() => {
-        setNoteText('');
-        closeModal();
+        setNoteText('')
+        closeModal()
       })
-      .catch(toast.error);
-  };
+      .catch(toast.error)
+  }
 
   // Open/close modal
-  const openModal = () => setModalIsOpen(true);
-  const closeModal = () => setModalIsOpen(false);
+  const openModal = () => setModalIsOpen(true)
+  const closeModal = () => setModalIsOpen(false)
 
   if (!ticket) {
-    return <Spinner />;
+    return <Spinner />
   }
 
   return (
@@ -147,7 +147,7 @@ function Ticket() {
         </button>
       )}
     </div>
-  );
+  )
 }
 
-export default Ticket;
+export default Ticket
