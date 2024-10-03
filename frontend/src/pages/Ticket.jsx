@@ -29,8 +29,10 @@ function Ticket() {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [noteText, setNoteText] = useState('')
   const { ticket } = useSelector((state) => state.tickets)
+  //const { ticket, isLoading } = useSelector((state) => state.tickets)
 
   const { notes } = useSelector((state) => state.notes)
+  //const { notes, isLoading:notesIsLoading } = useSelector((state) => state.notes)
 
   // NOTE: no need for two useParams
   // const params = useParams()
