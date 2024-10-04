@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getTickets, createTicket } = require('../controllers/ticketController') 
+const { getTickets, getTicket, createTicket } = require('../controllers/ticketController') 
 // const {
 //     getTickets,
 //     getTicket,
@@ -17,6 +17,8 @@ const { protect } = require('../middelware/authMiddleware')
 // router.use('/:ticketId/notes', noteRouter)
 
 router.route('/').get(protect, getTickets).post(protect, createTicket)
+
+router.route('/:id').get(protect, getTicket)
 
 // router
 //     .route('/')
