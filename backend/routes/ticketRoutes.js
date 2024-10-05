@@ -1,13 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { getTickets, getTicket, createTicket, deleteTicket, updateTicket } = require('../controllers/ticketController') 
-// const {
-//     getTickets,
-//     getTicket,
-//     createTicket,
-//     deleteTicket,
-//     updateTicket,
-// } = require('../controllers/ticketController')
+
 
 const { protect } = require('../middelware/authMiddleware')
 

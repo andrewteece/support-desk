@@ -1,32 +1,32 @@
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { createTicket } from '../features/tickets/ticketSlice';
-import BackButton from '../components/BackButton';
+import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { createTicket } from '../features/tickets/ticketSlice'
+import BackButton from '../components/BackButton'
 
 function NewTicket() {
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth)
 
-  const [name] = useState(user.name);
-  const [email] = useState(user.email);
-  const [product, setProduct] = useState('iPhone');
-  const [description, setDescription] = useState('');
+  const [name] = useState(user.name)
+  const [email] = useState(user.email)
+  const [product, setProduct] = useState('iPhone')
+  const [description, setDescription] = useState('')
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const onSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     dispatch(createTicket({ product, description }))
       .unwrap()
       .then(() => {
         // we got a good response so navigate the user
-        navigate('/tickets');
-        toast.success('New ticket created');
+        navigate('/tickets')
+        toast.success('New ticket created')
       })
-      .catch(toast.error);
-  };
+      .catch(toast.error)
+  }
 
   return (
     <>
@@ -55,7 +55,7 @@ function NewTicket() {
               onChange={(e) => setProduct(e.target.value)}
             >
               <option value='iPhone'>iPhone</option>
-              <option value='Macbook Pro '>Macbook Pro</option>
+              <option value='Macbook Pro'>Macbook Pro</option>
               <option value='iMac'>iMac</option>
               <option value='iPad'>iPad</option>
             </select>
@@ -77,7 +77,7 @@ function NewTicket() {
         </form>
       </section>
     </>
-  );
+  )
 }
 
-export default NewTicket;
+export default NewTicket
