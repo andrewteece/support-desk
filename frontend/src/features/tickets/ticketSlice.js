@@ -14,8 +14,8 @@ import { extractErrorMessage } from '../../utils'
 // }
 
 const initialState = {
-  tickets: [],
-  ticket: {},
+  tickets: null,
+  ticket: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
