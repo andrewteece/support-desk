@@ -115,7 +115,9 @@ const updateTicket = asyncHandler(async (req, res) => {
         throw new Error('User not found')
     }
 
-    if (ticket.uer.toString() !== req.user.id) {
+    const ticket = await Ticket.findById(req.params.id)
+
+    if (ticket.user.toString() !== req.user.id) {
         res.status(401)
         throw new Error('Not Authorized')
     }
@@ -123,7 +125,7 @@ const updateTicket = asyncHandler(async (req, res) => {
     const updatedTicket = await Ticket.findByIdAndUpdate(req.params.id,
         req.body, { new: true })
 
-        res.status(200).json(updateTicket)
+        res.status(200).json(updatedTicket)
 })
 
 module.exports = {
