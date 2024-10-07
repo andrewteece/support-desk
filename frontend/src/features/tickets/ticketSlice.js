@@ -1,26 +1,39 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import ticketService from './ticketService'
 // NOTE: use a extractErrorMessage function to save some repetition
-import { extractErrorMessage } from '../../utils'
+//import { extractErrorMessage } from '../../utils'
 
 // NOTE: no need for isLoading, isSuccess, isError or message as we can leverage
 // our AsyncThunkAction and get Promise reolved or rejected messages at
 // component level
 
 
-// const initialState = {
-//   tickets: null,
-//   ticket: null,
-// }
-
 const initialState = {
   tickets: null,
   ticket: null,
-  isError: false,
-  isSuccess: false,
-  isLoading: false,
-  message: ''
 }
+
+// const initialState = {
+//   tickets: [],
+//   ticket: {},
+//   isError: false,
+//   isSuccess: false,
+//   isLoading: false,
+//   message: ''
+// }
+
+// export const ticketSlice = createSlice({
+//   name: 'ticket',
+//   initialState,
+//   reducers: {
+//     reset: (state) => initialState
+//   },
+//   extraReducers: (builder) => {
+
+//   }
+// })
+
+
 
 // Create new ticket
 export const createTicket = createAsyncThunk(
@@ -48,7 +61,7 @@ export const getTickets = createAsyncThunk(
   }
 )
 
-// Get user ticket
+// // Get user ticket
 // export const getTicket = createAsyncThunk(
 //   'tickets/get',
 //   async (ticketId, thunkAPI) => {
@@ -127,3 +140,4 @@ export const ticketSlice = createSlice({
 
 export const { reset } = ticketSlice.actions
 export default ticketSlice.reducer
+
