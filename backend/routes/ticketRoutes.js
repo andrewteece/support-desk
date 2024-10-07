@@ -17,7 +17,7 @@ router.route('/:id').get(protect, getTicket).delete(protect, deleteTicket).put(p
 // router
 //     .route('/')
 //     .get(protect, getTicket)
-    // .delete(protect, deleteTicket)
-    // .put(protect, updateTicket)
+//     .delete(protect, deleteTicket)
+//     .put(protect, updateTicket)
 
 module.exports = router

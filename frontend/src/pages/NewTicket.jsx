@@ -1,4 +1,4 @@
-function NewTicket1() {
+function NewTicket() {
   return (
     <div>
       <h1>New Ticket</h1>
@@ -6,4 +6,4 @@ function NewTicket1() {
   )
 }
 
-export default NewTicket1
+export default NewTicket

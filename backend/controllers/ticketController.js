@@ -80,7 +80,7 @@ const createTicket = asyncHandler(async (req, res) => {
 // @route DELETE /api/tickets/:id
 // @access Private
 const deleteTicket = asyncHandler(async (req, res) => {
-    const user =- await User.findById(req.yser.id)
+    const user =- await User.findById(req.user.id)
 
     if (!user) { 
         res.status(401)
