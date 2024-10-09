@@ -21,6 +21,8 @@ function Ticket() {
     }
 
     dispatch(getTicket(ticketId))
+
+    //eslint-disable-next-line
   }, [isError, message, ticketId])
 
   if (isLoading) {
@@ -36,12 +38,19 @@ function Ticket() {
       <header className='ticket-header'>
         <BackButton url='/tickets' />
         <h2>
-          {/* Ticket ID: {ticket._id}
+          Ticket ID: {ticket._id}
           <span className={`status status-${ticket.status}`}>
             {ticket.status}
-          </span> */}
-          ticket
+          </span>
         </h2>
+        <h3>
+          Date Submittted: {new Date(ticket.createdAt).toLocaleString('en-US')}
+        </h3>
+        <hr />
+        <div className='ticket-desc'>
+          <h3>Description of Issue</h3>
+          <p>{ticket.description}</p>
+        </div>
       </header>
     </div>
   )
